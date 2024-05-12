@@ -1,0 +1,679 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - beytullahulusoyacademy</title>
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/turtlearnMVP.WEB.styles.css" asp-append-version="true" /> *@
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/images/favicon.ico" />
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include jQuery Validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+    <!-- Include jQuery Unobtrusive Validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Global Compulsory (Do not remove)-->
+    <link rel="stylesheet" href="~/css/font-awesome/all.min.css" />
+    <link rel="stylesheet" href="~/css/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="~/css/bootstrap/bootstrap.min.css" />
+
+    <!-- Page CSS Implementing Plugins (Remove the plugin CSS here if site does not use that feature) -->
+    <link rel="stylesheet" href="~/css/select2/select2.css" />
+    <link rel="stylesheet" href="~/css/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/css/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="~/css/magnific-popup/magnific-popup.css" />
+
+    <!-- Template Style -->
+    <link rel="stylesheet" href="~/css/style.css" />
+    <script type="text/javascript">
+        var operationGrid;
+
+        function reloadGrid(targetGrid) {
+            targetGrid.trigger("reloadGrid");
+        }
+
+        function setOperationGrid(targetGridId) {
+            debugger;
+            operationGrid = targetGridId;
+        }
+
+        function getOperationGrid() {
+            debugger;
+            return operationGrid;
+        }
+
+        function setDatePicker(targetElement) {
+            try {
+                targetElement.datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    showTimepicker: false
+                });
+            } catch (error) {
+                console.error('Datetimepicker initialization error:', error);
+            }
+        }
+
+        function fillDropdowns() {
+            $(".zuraf-select").each(function () {
+                var dropdown = $(this);
+                var targetUrl = dropdown.data("fill-target-url");
+                // Placeholder değerini al
+                var placeholder = dropdown.attr("placeholder");
+
+                // AJAX isteği göndererek verileri al
+                $.ajax({
+                    url: targetUrl,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        // Verileri alındıktan sonra dropdown'u doldur
+                        dropdown.empty(); // Önce dropdown'u temizle
+
+                        // Placeholder'ı ekleyin, eğer varsa
+                        if (placeholder) {
+                            dropdown.append($('<option disabled selected value="0"></option>').text(placeholder));
+                        }
+
+                        $.each(data, function (key, entry) {
+                            dropdown.append($('<option></option>').attr('value', entry.value).text(entry.text));
+                        });
+
+                        // İlgili dropdown seçilen değeri yükle
+                        dropdown.val(0);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        // Hata durumunda bir işlem yapılabilir
+                    }
+                });
+            });
+        }
+
+
+        // $(function () {
+        //     $('[data-toggle="popover"]').popover();
+        // });
+    </script>
+</head>
+<body>
+    <div id="loginOrRegisterPartialZone"></div>
+    <!--=================================
+    Header -->
+    <header class="header header-style-02 header-sticky header-fix">
+        <nav class="navbar navbar-static-top navbar-expand-lg px-3 px-md-5">
+            <div class="container-fluid position-relative px-0">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"><i class="fas fa-align-left"></i></button>
+                <a class="navbar-brand" href="/Home/Index">
+                    <img class="img-fluid" src="~/images/beyto.png" alt="logo">
+                </a>
+                <a class="navbar-brand navbar-brand-sticky" href="/Home/Index">
+                    <img class="img-fluid" src="~/images/beyto.png" alt="logo">
+                </a>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ana Sayfa<i class="fas fa-chevron-down fa-xs"></i></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="index.html"><span>Ana Sayfa 01</span></a></li>
+                                <li><a class="dropdown-item" href="index-02.html"><span>Ana Sayfa 02</span></a></li>
+                                <li><a class="dropdown-item" href="index-03.html"><span>Ana Sayfa 03</span></a></li>
+                                <li class="active"><a class="dropdown-item" href="index-04.html"><span>Ana Sayfa 04</span></a></li>
+                                <li><a class="dropdown-item" href="index-05.html"><span>Ana Sayfa 05</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a class="nav-link" href="javascript:void(0)" data-bs-toggle="dropdown">Kurs<i class="fas fa-chevron-down fa-xs"></i></a>
+                            <ul class="dropdown-menu megamenu dropdown-menu-md">
+                                <li>
+                                    <div class="row g-0">
+                                        <div class="col-sm-6">
+                                            <h6 class="nav-title">Kurs Sayfaları</h6>
+                                            <ul class="list-unstyled mt-lg-1">
+                                                <li><a class="dropdown-item" href="course-list.html"><span>Kurs Listesi 1</span></a></li>
+                                                <li><a class="dropdown-item" href="course-list-map.html"><span>Kurs Listesi 2</span></a></li>
+                                                <li><a class="dropdown-item" href="course-grid.html"><span>Kurs Grid 1</span></a></li>
+                                                <li><a class="dropdown-item" href="course-grid-map.html"><span>Kurs Grid 2</span></a></li>
+                                                <li><a class="dropdown-item" href="course-detail-style-01.html"><span>Kurs Detay 01</span></a></li>
+                                                <li><a class="dropdown-item" href="course-detail-style-02.html"><span>Kurs Detay 02</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h6 class="nav-title">Kurs Sayfaları</h6>
+                                            <ul class="list-unstyled mt-lg-1">
+                                                <li><a class="dropdown-item" href="course-detail-style-03.html"><span>Kurs Detay 03</span></a></li>
+                                                <li><a class="dropdown-item" href="membership-levels.html"><span>Üyelik Seviyeleri</span></a></li>
+                                                <li><a class="dropdown-item" href="events.html"><span>Etkinlikler</span></a></li>
+                                                <li><a class="dropdown-item" href="event-detail.html"><span>Etkinlik Detay</span></a></li>
+                                                <li><a class="dropdown-item" href="teachers.html"><span>Eğitmenler</span></a></li>
+                                                <li><a class="dropdown-item" href="teacher-detail.html"><span>TEğitmen Detay</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a class="nav-link" href="javascript:void(0)" data-bs-toggle="dropdown">Sayfalar<i class="fas fa-chevron-down fa-xs"></i></a>
+                            <ul class="dropdown-menu megamenu dropdown-menu-lg">
+                                <li>
+                                    <div class="row g-0">
+                                        <div class="col-sm-6 col-md-4">
+                                            <h6 class="nav-title">Temel Sayfalar</h6>
+                                            <ul class="list-unstyled mt-lg-1">
+                                                <li><a class="dropdown-item" href="about-us.html"><span>Hakkımızda</span></a></li>
+                                                <li><a class="dropdown-item" href="contact-us.html"><span>İletişim</span></a></li>
+                                                <li><a class="dropdown-item" href="gallery.html"><span>Galeri</span></a></li>
+                                                <li><a class="dropdown-item" href="login.html"><span>Giriş Yap</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6 col-md-4">
+                                            <h6 class="nav-title">Bilgi Sayfaları</h6>
+                                            <ul class="list-unstyled mt-lg-1">
+                                                <li><a class="dropdown-item" href="privacy-policy.html"><span>Gizlilik Politikası</span></a></li>
+                                                <li><a class="dropdown-item" href="terms-and-conditions.html"><span>SSS</span></a></li>
+                                                <li><a class="dropdown-item" href="faqs.html"><span>Faks</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6 col-md-4">
+                                            <h6 class="nav-title">Ekstra Sayfalar</h6>
+                                            <ul class="list-unstyled mt-lg-1">
+                                                <li><a class="dropdown-item" href="error-404.html"><span>404 Hata</span></a></li>
+                                                <li><a class="dropdown-item" href="coming-soon.html"><span>Yakında</span></a></li>
+                                                <li><a class="dropdown-item" href="maintenance.html"><span>Bakımda</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a class="nav-link" href="javascript:void(0)" data-bs-toggle="dropdown">Blog<i class="fas fa-chevron-down fa-xs"></i></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="classic-full-width.html"><span>Klasik Full Genişlik</span></a></li>
+                                <li><a class="dropdown-item" href="classic-left-sidebar.html"><span>Klasik Sol Sidebar</span></a></li>
+                                <li><a class="dropdown-item" href="blog-single.html"><span>Tekil Blog</span></a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Alışveriş<i class="fas fa-chevron-down fa-xs"></i></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="shop.html"><span>Alışveriş</span></a></li>
+                                <li><a class="dropdown-item" href="cart.html"><span>Kart</span></a></li>
+                                <li><a class="dropdown-item" href="checkout.html"><span>Kontrol</span></a></li>
+                                <li><a class="dropdown-item" href="shop-single.html"><span>Tekil Alışveriş</span></a></li>
+                            </ul>
+                        </li>
+                        <li><a class="nav-link" href="contact-us.html">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="woo-action">
+                    <ul class="list-unstyled">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <container class="zurafworks-login-button">
+                                <li style="margin-right:10px !important; margin-left:20px" class="user">
+                                    <a>
+                                        @User.Identity.Name
+                                        @* <i class="fa fa-user ps-2 text-primary"></i> *@
+                                    </a>
+                                </li>
+                                <li class="cart dropdown">
+                                    @* <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img style="width:40px; height40px;object-fit: contain;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png" alt="User Photo" /></button> *@
+                                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img style="width:40px; height40px;object-fit: contain; border-radius:50px;" src="~/images/avatar/01.png" alt="User Photo" /></button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                        <ul class="cart-list ps-0">
+                                            <li class="d-flex">
+                                                <a class="remove-item" href="#"><i class="fas fa-times text-danger"></i></a>
+                                                <img class="img-fluid me-3" src="images/shop/01.jpg" alt="">
+                                                <div class="cart-info">
+                                                    <a href="#">İlköğretim Matematik Kursu</a>
+                                                    <span class="d-block">$200</span>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex">
+                                                <a class="remove-item" href="#"><i class="fas fa-times text-danger"></i></a>
+                                                <img class="img-fluid me-3" src="images/shop/02.jpg" alt="">
+                                                <div class="cart-info">
+                                                    <a href="#">İlköğretim Fen Bilgisi Kursu</a>
+                                                    <span class="d-block">$150</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="cart-footer">
+                                            <div class="d-flex mb-3">
+                                                <b class="me-auto text-dark">Toplam:</b>
+                                                <span>$350</span>
+                                            </div>
+                                            <div class="d-inline-block d-sm-flex">
+                                                <a id="logoutBtn" class="btn btn-sm btn-error text-white me-2 px-4" @* href="#" *@>Çıkış Yap</a>
+                                                <a class="btn btn-sm btn-dark text-white ms-0 mt-1 mt-sm-0 ms-sm-2 px-4" @* href="#" *@>Sepete Git</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </container>
+                        }
+                        else
+                        {
+                            <container @* style="cursor:pointer; background-color:#d9eee1; padding: 2px; border-radius:50px;" *@ class="zurafworks-login-button" id="loginbtn">
+                                <li style="margin-right:10px !important; margin-left:20px" class="user">
+                                    <a>
+                                        Merhaba, giriş yap
+                                        @* <i class="fa fa-user ps-2 text-primary"></i> *@
+                                    </a>
+                                </li>
+                                <li class="cart dropdown">
+                                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="cart-icon"><i class="fa fa-user"></i>    </span></button>
+                                    @* <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <ul class="cart-list ps-0">
+                                <li class="d-flex">
+                                <a class="remove-item" href="#"><i class="fas fa-times text-danger"></i></a>
+                                <img class="img-fluid me-3" src="images/shop/01.jpg" alt="">
+                                <div class="cart-info">
+                                <a href="#">Landscape Visitors Book - 122 Pages, A Design, A4</a>
+                                <span class="d-block">1 x 12.49</span>
+                                </div>
+                                </li>
+                                <li class="d-flex">
+                                <a class="remove-item" href="#"><i class="fas fa-times text-danger"></i></a>
+                                <img class="img-fluid me-3" src="images/shop/02.jpg" alt="">
+                                <div class="cart-info">
+                                <a href="#">Leather Visitors Notebook True-Ally A4 Faux</a>
+                                <span class="d-block">1 x 28.72</span>
+                                </div>
+                                </li>
+                                </ul>
+                                <div class="cart-footer">
+                                <div class="d-flex mb-3">
+                                <b class="me-auto text-dark">Subtotal:</b>
+                                <span>$41.21</span>
+                                </div>
+                                <div class="d-inline-block d-sm-flex">
+                                <a class="btn btn-sm btn-primary text-white me-2 px-4" href="#">View cart</a>
+                                <a class="btn btn-sm btn-dark text-white ms-0 mt-1 mt-sm-0 ms-sm-2 px-4" href="#">Checkout</a>
+                                </div>
+                                </div>
+                                </div> *@
+                                </li>
+                            </container>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--=================================
+    Header -->
+    @* <header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">turtlearnMVP.WEB</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    </header> *@
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @* <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2023 - turtlearnMVP.WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+    </footer> *@
+
+    <!--=================================
+            Back To Top -->
+    <div id="back-to-top" class="back-to-top">
+        <a href="#"><i class="fas fa-chevron-up"></i></a>
+    </div>
+    <!--=================================
+    Back To Top -->
+    <!--=================================
+    Javascript -->
+    <!-- JS Global Compulsory (Do not remove)-->
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/popper/popper.min.js"></script>
+    <script src="~/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Page JS Implementing Plugins (Remove the plugin script here if site does not use that feature)-->
+    <script src="~/js/jquery.appear.js"></script>
+    <script src="~/js/select2/select2.full.js"></script>
+    <script src="~/js/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/js/shuffle/shuffle.min.js"></script>
+    <script src="~/js/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Template Scripts (Do not remove)-->
+    <script src="~/js/custom.js"></script>
+    <script type="text/javascript">
+        function getViewComponent(target, url) {
+            debugger;
+            $.get(url, function (data) {
+                target.html(data);
+            });
+        }
+
+        // function loadFile(inputFile, imgElementId) {
+        //     // **Fonksiyon, seçilen dosyayı okur ve önizlemeyi belirtilen görüntü öğesine gösterir**
+
+        //     // 1. Görüntü öğesini parametre olarak alınan ID'ye göre al
+        //     var img = document.getElementById(imgElementId);
+
+        //     // 2. Bir dosya seçilip seçilmediğini kontrol edin
+        //     if (inputFile.files && inputFile.files[0]) {
+        //         // 3. Bir FileReader nesnesi oluşturun
+        //         var reader = new FileReader();
+
+        //         // 4. Dosya başarıyla okunduktan sonra çalıştırılacak işlev
+        //         reader.onload = function (e) {
+        //             // **Dosya yüklendikten sonra yapılacak işlemler**
+
+        //             // 4.1. Geçici bir resim elemanı oluştur ve önizlemeyi göster
+        //             var tempImg = new Image();
+        //             tempImg.src = e.target.result;
+
+        //             // 4.2. Geçici resmin yüklenmesini bekle
+        //             tempImg.onload = function () {
+        //                 // 4.2.1. Gerçek resim öğesinin src'sini geçici resmin src'si ile güncelle
+        //                 img.src = tempImg.src;
+        //             };
+
+        //             // 4.3. (Opsiyonel) Dosya verisini daha fazla işleme için kullanın (örneğin, sunucuya gönderme)
+        //             // var fileData = e.target.result;
+        //             // // ... İşlemlerinizi burada gerçekleştirin
+
+        //             // 4.4. (Opsiyonel) Hata ayıklama için dosya adını ve türünü yazdırın
+        //             // console.log("Dosya adı:", inputFile.files[0].name);
+        //             // console.log("Dosya türü:", inputFile.files[0].type);
+        //         }
+
+        //         // 5. Seçili dosyayı veri URL'si olarak oku
+        //         reader.readAsDataURL(inputFile.files[0]);
+        //     }
+        // }
+
+
+        function loadProfilePicture(inputFile, imgElementId, hiddenInputId) {
+            var canvas = document.createElement('canvas');
+            // **Fonksiyon, seçilen dosyayı okur ve önizlemeyi belirtilen görüntü öğesine gösterir**
+
+            // 1. Görüntü öğesini parametre olarak alınan ID'ye göre al
+            var img = document.getElementById(imgElementId);
+
+            // 2. Bir dosya seçilip seçilmediğini kontrol edin
+            if (inputFile.files && inputFile.files[0]) {
+                // 3. Bir FileReader nesnesi oluşturun
+                var reader = new FileReader();
+
+                // 4. Dosya başarıyla okunduktan sonra çalıştırılacak işlev
+                reader.onload = function (e) {
+                    // **Dosya yüklendikten sonra yapılacak işlemler**
+
+                    // 4.1. Geçici bir resim elemanı oluştur ve önizlemeyi göster
+                    var tempImg = new Image();
+                    tempImg.src = e.target.result;
+
+                    // 4.2. Geçici resmin yüklenmesini bekle
+                    tempImg.onload = function () {
+                        // **Resim boyutlarını ve boyut oranını kontrol edin**
+
+                        // Minimum ve maksimum boyutlar
+                        var minWidth = 192;
+                        var minHeight = 192;
+                        var maxWidth = 500;
+                        var maxHeight = 500;
+
+                        // Resim boyutlarını al
+                        var width = tempImg.naturalWidth;
+                        var height = tempImg.naturalHeight;
+
+                        // Boyut oranını hesaplayın
+                        var aspectRatio = width / height;
+
+                        // Hedef genişlik ve yüksekliği hesaplayın
+                        var targetWidth = 500;
+                        var targetHeight = 500;
+
+                        if (width > maxWidth) {
+                            targetWidth = maxWidth;
+                        }
+
+                        if (height > maxHeight) {
+                            targetHeight = maxHeight;
+                        }
+                        if (width < minWidth) {
+                            targetWidth = minWidth;
+                        }
+                        if (height < minHeight) {
+                            targetHeight = minHeight;
+                        }
+
+                        // Canvas elemanını ve bağlamını oluşturun
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+
+                        // Yeniden boyutlandırılmış görüntü için tuval boyutlarını ayarlayın
+                        canvas.width = targetWidth;
+                        canvas.height = targetHeight;
+
+                        // Yeniden boyutlandırılmış resmin tuvale çizilmesi
+                        ctx.drawImage(tempImg, 0, 0, width, height, 0, 0, targetWidth, targetHeight);
+
+                        // Yeniden boyutlandırılmış resmin veri URL'sini alın
+                        var resizedImageDataURL = canvas.toDataURL('image/jpeg'); // Formatı gerektiği gibi ayarlayın
+
+                        // Yeniden boyutlandırılmış görüntü veri URL'sini resim öğesine ayarlayın
+                        img.src = resizedImageDataURL;
+                    };
+
+                    // 4.3. (Opsiyonel) Dosya verisini daha fazla işleme için kullanın (örneğin, sunucuya gönderme)
+                    // var fileData = e.target.result;
+                    // // ... İşlemlerinizi burada gerçekleştirin
+
+                    // 4.4. (Opsiyonel) Hata ayıklama için dosya adını ve türünü yazdırın
+                    // console.log("Dosya adı:", inputFile.files[0].name);
+                    // console.log("Dosya türü:", inputFile.files[0].type);
+                }
+
+                // 5. Seçili dosyayı veri URL'si olarak oku
+                reader.readAsDataURL(inputFile.files[0]);
+            }
+            // 12. Get the resized image data URL
+            var resizedImageDataURL = canvas.toDataURL('image/jpeg'); // Formatı gerektiği gibi ayarlayın
+
+            // // 13. Set the resized image data URL in the hidden input
+            // // var resizedImageInput = document.getElementById(hiddenInputId);
+            //  debugger;
+            // // resizedImageInput.value = resizedImageDataURL;
+            // var resizedImageInput = document.getElementById(hiddenInputId);
+            // if (resizedImageInput) {
+            //     resizedImageInput.value = resizedImageDataURL;
+            // } else {
+            //     console.error("Hidden input element with ID '" + hiddenInputId + "' not found.");
+            // }
+
+            // **Form elementini al ve güncelle**
+            // Get the hidden input element
+            // var hiddenInput = document.getElementById(hiddenInputId);
+
+            // // Create a new image data object
+            // var imageData = {
+            //     dataURL: resizedImageDataURL, // Base64 encoded image data
+            //     filename: inputFile.files[0].name // Original filename
+            // };
+
+            // // If the hidden input exists, set its value to the resized image data URL
+            // if (hiddenInput) {
+            //     hiddenInput.value = JSON.stringify(imageData); // Assuming you want to store the image data as JSON
+            // } else {
+            //     console.error("Hidden input element with ID '" + hiddenInputId + "' not found.");
+            // } 
+            var checked = document.getElementById(hiddenInputId);
+
+            canvas.toBlob((blob) => {
+                let file = new File([blob], "resized.jpg", { type: "image/jpeg" });
+                let dt = new DataTransfer(); // Create a DataTransfer object
+                dt.items.add(file); // Add the File object to the DataTransfer
+                checked.files = dt.files; // Assign the files from DataTransfer to the input
+            }, 'image/jpeg');
+
+            debugger;
+            // 14. (Optional) Display the resized image in the target element
+            var img = document.getElementById(imgElementId);
+            img.src = resizedImageDataURL;
+        }
+
+
+        $(document).on('click', '#loginbtn', function () {
+            // var row = $(this).closest('tr.jqgrow');
+            // var rowId = row.attr('id');
+            debugger;
+
+            // $("#partialZoneContent").load("/User/Login");
+            $.ajax({
+                url: '/User/LoginOrRegisterPartial',
+                type: 'GET',
+                // data: { id: item.Id },
+                success: function (result) {
+                    $('#loginOrRegisterPartialZone').html(result);
+                    $('#loginModal').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    }).modal('show');
+
+                },
+                error: function () {
+                    console.error('Error loading partial view');
+                }
+            });
+
+
+        });
+
+
+        $(document).on('click', '#logoutBtn', function () {
+            // var row = $(this).closest('tr.jqgrow');
+            // var rowId = row.attr('id');
+            debugger;
+
+            // $("#partialZoneContent").load("/User/Login");
+            $.ajax({
+                url: '/User/Logout',
+                type: 'POST',
+                // data: { id: item.Id },
+                success: function (data) {
+                    window.alert(data.message);
+                    window.location.reload();
+                },
+                error: function () {
+                    // console.error('Error loading partial view');
+                }
+            });
+
+
+        });
+        $(document).ready(function () {
+
+            openEditForm = function (controllerUrl, id, targetGrid) {
+                $.ajax({
+                    url: controllerUrl + '/AddOrUpdate',
+                    type: 'GET',
+                    data: { id: id },
+                    success: function (result) {
+                        $('#partialEditContent').html(result);
+                        $('#editModal').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        }).modal('show');;
+                    },
+                    error: function () {
+                        $.gritter.add({
+                            title: 'Hata',
+                            text: result.message,
+                            class_name: 'gritter-error',
+                            sticky: false,
+                            time: 5000
+                        });
+                    }
+                });
+            };
+
+            openEditFormCustomUrl = function (controllerUrl) {
+                debugger;
+                $.ajax({
+                    url: controllerUrl,
+                    type: 'GET',
+                    // data: { id: id },
+                    success: function (result) {
+                        $('#partialEditContent').html(result);
+                        $('#editModal').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        }).modal('show');;
+                    },
+                    error: function () {
+                        $.gritter.add({
+                            title: 'Hata',
+                            text: result.message,
+                            class_name: 'gritter-error',
+                            sticky: false,
+                            time: 5000
+                        });
+                    }
+                });
+            }
+
+        });
+
+        function displayValidationErrors(data) {
+            debugger;
+            // Clear previous validation errors
+            $('.validation-summary-errors').empty();
+
+            // Display server-side validation errors
+            if (data.message && data.message.toLowerCase() === "formu eksiksiz doldurunuz.") {
+                // Display general form error
+                $('.validation-summary-errors').append('<ul><li>' + data.message + '</li></ul>');
+            } else if (data.errors) {
+                // Display field-specific errors
+                $.each(data.errors, function (key, value) {
+                    var errorMessages = value.join('<br>');
+                    $('#' + key).after('<span class="text-danger">' + errorMessages + '</span>');
+                });
+            }
+        }
+    </script>
+
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script> *@
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
